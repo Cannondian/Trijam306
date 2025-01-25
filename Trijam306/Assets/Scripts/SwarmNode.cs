@@ -8,7 +8,7 @@ public class SwarmNode : MonoBehaviour
     public Rigidbody2D rb;
     public GameObject sparkRadius;
 
-    public float moveSpeed = 5;
+    public float moveSpeed = 10;
     private float moveX;
     private float moveY;
 
@@ -18,7 +18,11 @@ public class SwarmNode : MonoBehaviour
     public bool isActive = false;
 
     private Vector2 target;
-    private 
+
+    public float randomLow = -2;
+    public float randomHigh = 2;
+    public float randomVariance = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +32,7 @@ public class SwarmNode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        randomVariance = Random.Range(randomLow,randomHigh);
         if (isActive)
         {
             // Simple Movement
@@ -54,15 +59,29 @@ public class SwarmNode : MonoBehaviour
                     target = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().leadSwarm.transform.position;
                 }
                 
-                float step = moveSpeed * Time.deltaTime;
-                transform.position = Vector2.MoveTowards(transform.position, target, step);
+                float step = moveSpeed * Time.deltaTime * 2;
+                transform.position = Vector2.MoveTowards(transform.position, new Vector2(target.x+randomVariance,target.y+randomVariance), step);
             }
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine(ActivateSpark());
+        }
     }
 
     public void CollectedStatus()
     {
         collected = true;
+    }
+
+    IEnumerator ActivateSpark()
+    {
+
+        sparkRadius.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        sparkRadius.SetActive(false);
     }
 }

@@ -12,14 +12,17 @@ public class Player : MonoBehaviour
     private float moveY;
 
     public int swarmCount;
-    public GameObject leadSwarm;
 
     public bool isActive = true;
+    public GameObject leadSwarm;
+
+    public Logic logic;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<Logic>();
     }
 
     // Update is called once per frame
@@ -75,8 +78,12 @@ public class Player : MonoBehaviour
     public void CollectSwarmNode(GameObject swarmNode)
     {
         swarmCount++;
-        leadSwarm = swarmNode;
-        swarmNode.GetComponent<SwarmNode>().collected = true;
+        if (!swarmNode.GetComponent<SwarmNode>().collected)
+        {
+            leadSwarm = swarmNode;
+            swarmNode.GetComponent<SwarmNode>().collected = true;
+        }
+        
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -84,6 +91,14 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "Swarm")
         {
             CollectSwarmNode(other.gameObject);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Goal")
+        {
+            logic.GameOver();
         }
     }
 

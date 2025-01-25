@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Swarm
+  - Spark
+  - Goal
+  - Logic
   layers:
   - Default
   - TransparentFX

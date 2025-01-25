@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Logic : MonoBehaviour
 {
+    public GameObject endScreen;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +16,15 @@ public class Logic : MonoBehaviour
     void Update()
     {
         
+    }
+
+     public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void GameOver()
+    {
+        endScreen.SetActive(true);
     }
 }
