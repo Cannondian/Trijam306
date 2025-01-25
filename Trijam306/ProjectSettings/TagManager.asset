@@ -8,16 +8,17 @@ TagManager:
   - Spark
   - Goal
   - Logic
+  - ThinWall
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - ThinWall
   - Water
   - UI
+  - Swarm
   - 
-  - 
-  - 
+  - Cover
   - 
   - 
   - 

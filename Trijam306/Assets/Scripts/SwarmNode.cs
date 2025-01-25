@@ -84,4 +84,12 @@ public class SwarmNode : MonoBehaviour
 
         sparkRadius.SetActive(false);
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+{
+    if (collision.gameObject.CompareTag("ThinWall"))
+    {
+        Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>(), true);
+    }
+}
 }

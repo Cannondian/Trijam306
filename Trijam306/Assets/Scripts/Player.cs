@@ -98,6 +98,8 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "Goal")
         {
+            Destroy(other.gameObject);
+            isActive = false;
             logic.GameOver();
         }
     }
